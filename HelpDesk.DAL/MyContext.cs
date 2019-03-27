@@ -1,8 +1,11 @@
-﻿using HelpDesk.Models.IdentityEntities;
+﻿using HelpDesk.Models.Entities;
+using HelpDesk.Models.IdentityEntities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
+using Microsoft.AspNetCore.JsonPatch.Operations;
 using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Linq;
+using System.Reflection.Emit;
 
 namespace HelpDesk.DAL
 {
@@ -26,9 +29,13 @@ namespace HelpDesk.DAL
                 var validationContext = new ValidationContext(entity);
                 Validator.ValidateObject(entity, validationContext);
             }
-
             return base.SaveChanges();
         }
+
+        public virtual DbSet<Failure> Failures { get; set; }
+        public virtual DbSet<FailureLog> Operations { get; set; }
+        public virtual DbSet<Photo> Photos { get; set; }
+        public virtual DbSet<Survey> Surveys { get; set; }
 
     }
 }

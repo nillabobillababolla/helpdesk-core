@@ -53,13 +53,13 @@ namespace HelpDesk.Models.Entities
         public bool HasWarranty { get; set; }
         [DisplayName("Rapor")]
         public string Report { get; set; }
+
         [DisplayName("Fotoğraf")]
-        public List<string> PhotoPath { get; set; }
+        public ICollection<string> PhotoPath { get; set; }
 
         public string ClientId { get; set; }
         public string TechnicianId { get; set; }
         public string OperatorId { get; set; }
-        public int? CategoryId { get; set; }
         public string SurveyId { get; set; }
 
         [ForeignKey("ClientId")]
@@ -71,9 +71,8 @@ namespace HelpDesk.Models.Entities
         [ForeignKey("SurveyId")]
         public virtual Survey Survey { get; set; }
 
-        [ForeignKey("CategoryId")]
 
-        public virtual ICollection<FailureLog> Operations { get; set; } = new HashSet<FailureLog>();
+        public virtual ICollection<FailureLog> FailureLogs { get; set; } = new HashSet<FailureLog>();
         public virtual ICollection<Photo> Photos { get; set; } = new HashSet<Photo>();
     }
 }
