@@ -3,12 +3,30 @@
 <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>@ViewData["Title"] - HelpDesk.Web</title>
+    <link rel="shortcut icon" href="~/assets/img/favicon.ico">
+    <title>@ViewData["Title"] - Anasayfa</title>
 
     <environment include="Development">
         <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.css" />
         <link rel="stylesheet" href="~/css/site.css" />
+        <link href="https://fonts.googleapis.com/css?family=Ubuntu" rel="stylesheet">
+
+        <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:400,300,100,700" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css?family=Roboto:500,400italic,100,700italic,300,700,500italic,400" rel="stylesheet">
+        <link href="~/assets/css/bootstrap.min.css" rel="stylesheet" />
+        <link href="~/assets/css/style.css" rel="stylesheet" />
+        <link href="~/assets/plugins/switchery/switchery.min.css" rel="stylesheet" />
+        <link href="~/assets/plugins/bootstrap-select/bootstrap-select.min.css" rel="stylesheet" />
+        <link href="~/assets/plugins/jquery-ricksaw-chart/css/rickshaw.css" rel="stylesheet" />
+        <link href="~/assets/plugins/bootstrap-validator/bootstrapValidator.min.css" rel="stylesheet" />
+        <link href="~/assets/css/demo/jquery-steps.min.css" rel="stylesheet" />
+        <link href="~/assets/plugins/summernote/summernote.min.css" rel="stylesheet" />
+        <link href="~/assets/css/demo/jasmine.css" rel="stylesheet" />
+        <link href="~/assets/plugins/pace/pace.min.css" rel="stylesheet" />
+        <link href="~/assets/plugins/font-awesome/css/font-awesome.min.css" rel="stylesheet">
+        @RenderSection("top", false)
     </environment>
+
     <environment exclude="Development">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css"
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
@@ -17,38 +35,67 @@
     </environment>
 </head>
 <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top">
-        <div class="container">
-            <div class="navbar-header">
-                <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-                    <span class="sr-only">Toggle navigation</span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                    <span class="icon-bar"></span>
-                </button>
-                <a asp-area="" asp-controller="Home" asp-action="Index" class="navbar-brand">HelpDesk.Web</a>
+    <div id="container" class="effect mainnav-sm navbar-fixed mainnav-fixed">
+        <!--NAVBAR-->
+        <!--===================================================-->
+        <header id="navbar">
+            <div id="navbar-container" class="boxed">
+                <!-- Header -->
+                <partial name="_HeaderPartial" />
+                <!-- End header -->
             </div>
-            <div class="navbar-collapse collapse">
-                <ul class="nav navbar-nav">
-                    <li><a asp-area="" asp-controller="Home" asp-action="Index">Home</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="About">About</a></li>
-                    <li><a asp-area="" asp-controller="Home" asp-action="Contact">Contact</a></li>
-                </ul>
+        </header>
+        <!--===================================================-->
+        <!--END NAVBAR-->
+        <div class="boxed">
+            <!--CONTENT CONTAINER-->
+            <!--===================================================-->
+            <div id="content-container">
+                @RenderBody()
             </div>
+            <!--===================================================-->
+            <!--END CONTENT CONTAINER-->
+            <!--MAIN NAVIGATION-->
+            <!--===================================================-->
+            <nav id="mainnav-container">
+                <partial name="_DrawerPartial" />
+            </nav>
+            <!--===================================================-->
+            <!--END MAIN NAVIGATION-->
         </div>
-    </nav>
+        <!-- FOOTER -->
+        <!--===================================================-->
+        <footer id="footer">
+            <p class="pad-lft">&#0169; @DateTime.Now.Year Jedi Danışmanlık, Bilişim Hizmetleri A.Ş.</p>
+        </footer>
+        <!--===================================================-->
+        <!-- END FOOTER -->
+        <!-- SCROLL TOP BUTTON -->
+        <!--===================================================-->
+        <button id="scroll-top" class="btn"><i class="fa fa-chevron-up"></i></button>
+        <!--===================================================-->
+    </div>
+    <!--===================================================-->
+    <!-- END OF CONTAINER -->
+    <!--JAVASCRIPT-->
+    <!--=================================================-->
+    
+    
+
+    @RenderSection("bottom", false)
 
     <partial name="_CookieConsentPartial" />
 
-    <div class="container body-content">
-        @RenderBody()
-        <hr />
-        <footer>
-            <p>&copy; 2019 - HelpDesk.Web</p>
-        </footer>
-    </div>
-
     <environment include="Development">
+        <script src="~/assets/js/jquery-2.1.1.min.js"></script>
+        <script src="~/assets/plugins/metismenu/metismenu.min.js"></script>
+        <script src="~/assets/js/bootstrap.min.js"></script>
+        <script src="~/assets/plugins/nanoscrollerjs/jquery.nanoscroller.min.js"></script>
+        <script src="~/assets/js/scripts.js"></script>
+        <script src="~/assets/js/demo/wizard.js"></script>
+        <script src="~/assets/js/demo/form-wizard.js"></script>
+        <script src="~/assets/js/demo/dashboard-v2.js"></script>
+        <script src="~/assets/plugins/screenfull/screenfull.js"></script>
         <script src="~/lib/jquery/dist/jquery.js"></script>
         <script src="~/lib/bootstrap/dist/js/bootstrap.js"></script>
         <script src="~/js/site.js" asp-append-version="true"></script>

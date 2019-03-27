@@ -46,6 +46,19 @@ namespace HelpDesk.Web
              .AddDefaultTokenProviders()
              .AddEntityFrameworkStores<MyContext>();
 
+            services.AddWebOptimizer(pipeline =>
+            {
+                pipeline.AddJavaScriptBundle("~/assets/js/jquery-2.1.1.min.js",
+                "~/assets/js/bootstrap.min.js",
+                "~/assets/plugins/nanoscrollerjs/jquery.nanoscroller.min.js",
+                "~/assets/plugins/metismenu/metismenu.min.js",
+                "~/assets/js/scripts.js",
+                "~/assets/js/demo/wizard.js",
+                "~/assets/js/demo/form-wizard.js",
+                "~/assets/js/demo/dashboard-v2.js",
+                "~/assets/plugins/screenfull/screenfull.js");
+            });
+
             services.Configure<IdentityOptions>(options =>
             {
                 // Password settings.
