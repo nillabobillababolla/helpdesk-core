@@ -5,7 +5,12 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\HelpDesk.DAL\HelpDesk.DAL.csproj" PrivateAssets="All" />
+    <PackageReference Include="Microsoft.EntityFrameworkCore" Version="2.1.1" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\HelpDesk.DAL\HelpDesk.DAL.csproj" />
+    <ProjectReference Include="..\HelpDesk.Models\HelpDesk.Models.csproj" />
   </ItemGroup>
 
 </Project>
