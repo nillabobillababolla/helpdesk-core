@@ -57,7 +57,7 @@ namespace HelpDesk.Web.Controllers
                 }
                 else
                 {
-                    await _userManager.AddToRoleAsync(user, IdentityRoles.Customer.ToString());
+                    await _userManager.AddToRoleAsync(user, IdentityRoles.Client.ToString());
                 }
                 return RedirectToAction(nameof(Login));
             }
@@ -110,4 +110,5 @@ namespace HelpDesk.Web.Controllers
             }
 
         }
+    }
 }
