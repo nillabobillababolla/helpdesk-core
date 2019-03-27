@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelpDesk.Models", "HelpDesk
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "HelpDesk.Web", "HelpDesk.Web\HelpDesk.Web.csproj", "{14704F55-7FE9-41F9-A1F8-6117656E188D}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelpDesk.Tema", "HelpDesk.Tema\HelpDesk.Tema.csproj", "{80EE0859-FE84-4BFD-ACDC-B74B5ACF8AD7}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HelpDesk.Tema", "HelpDesk.Tema\HelpDesk.Tema.csproj", "{350687C9-2AB8-49CC-B51A-A2F7E68507CA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -35,10 +35,10 @@ Global
 		{14704F55-7FE9-41F9-A1F8-6117656E188D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{14704F55-7FE9-41F9-A1F8-6117656E188D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{14704F55-7FE9-41F9-A1F8-6117656E188D}.Release|Any CPU.Build.0 = Release|Any CPU
-		{80EE0859-FE84-4BFD-ACDC-B74B5ACF8AD7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{80EE0859-FE84-4BFD-ACDC-B74B5ACF8AD7}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{80EE0859-FE84-4BFD-ACDC-B74B5ACF8AD7}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{80EE0859-FE84-4BFD-ACDC-B74B5ACF8AD7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{350687C9-2AB8-49CC-B51A-A2F7E68507CA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{350687C9-2AB8-49CC-B51A-A2F7E68507CA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{350687C9-2AB8-49CC-B51A-A2F7E68507CA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{350687C9-2AB8-49CC-B51A-A2F7E68507CA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

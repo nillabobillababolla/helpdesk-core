@@ -38,7 +38,7 @@ namespace HelpDesk.Models.ViewModels
         public TechnicianStatuses? TechnicianStatus { get; set; }
 
         public string AvatarPath { get; set; }
-        [Display(Name = "Kullanıcı Avatarı")]
-        public HttpPostedFileBase PostedFile { get; set; }
+        //[Display(Name = "Kullanıcı Avatarı")]
+        //public HttpPostedFileBase PostedFile { get; set; }
     }
 }

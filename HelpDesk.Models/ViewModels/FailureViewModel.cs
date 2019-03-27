@@ -68,7 +68,7 @@ namespace HelpDesk.Models.ViewModels
 
         public List<string> PhotoPath { get; set; }
         [DisplayName("Fotoğraf")]
-        public List<HttpPostedFileBase> PostedPhoto { get; set; }
+        //public List<HttpPostedFileBase> PostedPhoto { get; set; }
 
         public List<FailureLogViewModel> FailureLogs { get; set; }
     }
