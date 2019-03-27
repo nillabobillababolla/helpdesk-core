@@ -1,7 +1,7 @@
 ﻿using Microsoft.AspNetCore.Identity;
 using System.ComponentModel.DataAnnotations;
 
-namespace HelpDesk.Models.IdentityModels
+namespace HelpDesk.Models.IdentityEntities
 {
     public class ApplicationUser : IdentityUser
     {

@@ -1,4 +1,4 @@
-﻿using HelpDesk.Models.IdentityModels;
+﻿using HelpDesk.Models.IdentityEntities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
 

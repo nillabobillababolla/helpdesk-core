@@ -1,5 +1,5 @@
 ﻿using HelpDesk.DAL;
-using HelpDesk.Models.IdentityModels;
+using HelpDesk.Models.IdentityEntities;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Http;
