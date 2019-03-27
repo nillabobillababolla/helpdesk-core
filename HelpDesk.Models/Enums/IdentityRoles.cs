@@ -5,6 +5,6 @@
         Admin,
         Technician,
         Operator,
-        Customer
+        Client
     }
 }

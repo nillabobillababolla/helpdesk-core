@@ -1,9 +1,10 @@
-﻿using System;
+﻿using HelpDesk.Models.Enums;
+using HelpDesk.Models.IdentityEntities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace HelpDesk.Models.Entities
 {
@@ -62,18 +63,17 @@ namespace HelpDesk.Models.Entities
         public string SurveyId { get; set; }
 
         [ForeignKey("ClientId")]
-        public virtual User Client { get; set; }
+        public virtual ApplicationUser Client { get; set; }
         [ForeignKey("TechnicianId")]
-        public virtual User Technician { get; set; }
+        public virtual ApplicationUser Technician { get; set; }
         [ForeignKey("OperatorId")]
-        public virtual User Operator { get; set; }
+        public virtual ApplicationUser Operator { get; set; }
         [ForeignKey("SurveyId")]
         public virtual Survey Survey { get; set; }
 
         [ForeignKey("CategoryId")]
 
-        public virtual Category Category { get; set; }
-        public virtual ICollection<Operation> Operations { get; set; } = new HashSet<Operation>();
+        public virtual ICollection<FailureLog> Operations { get; set; } = new HashSet<FailureLog>();
         public virtual ICollection<Photo> Photos { get; set; } = new HashSet<Photo>();
     }
 }

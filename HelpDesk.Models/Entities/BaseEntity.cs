@@ -1,5 +1,6 @@
 ﻿using System;
 using System.ComponentModel.DataAnnotations;
+using System.ComponentModel.DataAnnotations.Schema;
 using System.IO;
 using System.Runtime.Serialization.Formatters.Binary;
 
@@ -8,16 +9,17 @@ namespace HelpDesk.Models.Entities
     public abstract class BaseEntity<T> : AuditEntity
     {
         [Key]
+        [Column(Order = 1)]
         public T Id { get; set; }
         public T ShallowCopy()
         {
-            return (T)this.MemberwiseClone();
+            return (T)MemberwiseClone();
         }
         public T DeepCopy()
         {
-            using (var ms = new MemoryStream())
+            using (MemoryStream ms = new MemoryStream())
             {
-                var formatter = new BinaryFormatter();
+                BinaryFormatter formatter = new BinaryFormatter();
                 formatter.Serialize(ms, this);
                 ms.Position = 0;
                 return (T)formatter.Deserialize(ms);
