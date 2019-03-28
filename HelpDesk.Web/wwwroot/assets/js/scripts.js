@@ -42,26 +42,6 @@ $(document).ready(function() {
                 var b = $(".add-popover");
                 b.length && b.popover();
 
-                // STYLEABLE SCROLLBARS
-                // =================================================================
-                // Require nanoScroller
-                // http://jamesflorentino.github.io/nanoScrollerJS/
-                // =================================================================
-
-                var c = $(".nano");
-                c.length && c.nanoScroller({
-                        preventPageScrolling: !0
-                    }),
-
-                    // Update nancoscroller		
-                    $("#navbar-container .navbar-top-links").on("shown.bs.dropdown", ".dropdown", function() {
-                        $(this).find(".nano").nanoScroller({
-                            preventPageScrolling: !0
-                        })
-                    }),
-
-                    nyasa.body.addClass("page-effect")
-
                 /* ========================================================================
                  * PANEL REMOVAL v1.0
                  * -------------------------------------------------------------------------
