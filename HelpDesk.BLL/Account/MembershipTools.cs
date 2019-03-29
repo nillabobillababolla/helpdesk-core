@@ -22,5 +22,10 @@ namespace HelpDesk.BLL.Account
         {
             get { return _signInManager; }
         }
+
+        public static string GetNameSurname()
+        {
+            return "sdfsdf";
+        }
     }
 }
