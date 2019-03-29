@@ -95,6 +95,13 @@ namespace HelpDesk.Web.Controllers
             return View(model);
         }
 
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await _signInManager.SignOutAsync();
+            return RedirectToAction("Index", "Home");
+        }
+
         private async Task CreateRoles()
         {
             var roleNames = Enum.GetNames(typeof(IdentityRoles));
