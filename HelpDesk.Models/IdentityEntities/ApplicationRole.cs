@@ -5,7 +5,7 @@ namespace HelpDesk.Models.IdentityEntities
 {
     public class ApplicationRole : IdentityRole
     {
-        [Required,StringLength(200)]
+        [StringLength(200)]
         public string Description { get; set; }
     }
 }

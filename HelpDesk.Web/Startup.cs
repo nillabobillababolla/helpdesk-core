@@ -9,6 +9,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
+using AutoMapper;
 
 namespace HelpDesk.Web
 {
@@ -91,6 +92,7 @@ namespace HelpDesk.Web
                 options.SlidingExpiration = true;
             });
 
+            services.AddAutoMapper();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
         }
 
