@@ -10,6 +10,10 @@ using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using System;
 using AutoMapper;
+using HelpDesk.BLL.Repository;
+using HelpDesk.BLL.Repository.Abstracts;
+using HelpDesk.Models.Entities;
+using HelpDesk.BLL.Account;
 
 namespace HelpDesk.Web
 {
@@ -91,6 +95,13 @@ namespace HelpDesk.Web
                 options.AccessDeniedPath = "/Identity/Account/AccessDenied";
                 options.SlidingExpiration = true;
             });
+
+            services.AddScoped<IRepository<Failure, int>, FailureRepo>();
+            services.AddScoped<IRepository<FailureLog, int>, FailureLogRepo>();
+            services.AddScoped<IRepository<Survey, string>, SurveyRepo>();
+            services.AddScoped<IRepository<Photo, string>, PhotoRepo>();
+            services.AddScoped<MembershipTools, MembershipTools>();
+           
 
             services.AddAutoMapper();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
