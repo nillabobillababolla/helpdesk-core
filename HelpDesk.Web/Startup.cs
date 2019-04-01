@@ -101,7 +101,8 @@ namespace HelpDesk.Web
             services.AddScoped<IRepository<Survey, string>, SurveyRepo>();
             services.AddScoped<IRepository<Photo, string>, PhotoRepo>();
             services.AddScoped<MembershipTools, MembershipTools>();
-           
+
+            services.AddSingleton<IHttpContextAccessor, HttpContextAccessor>();
 
             services.AddAutoMapper();
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);

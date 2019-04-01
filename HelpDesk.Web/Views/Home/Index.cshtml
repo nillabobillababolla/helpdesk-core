@@ -4,6 +4,7 @@
 
 @inject SignInManager<ApplicationUser> SignInManager
 @inject UserManager<ApplicationUser> UserManager
+@inject MembershipTools _membershipTools
 
 @{
     ViewBag.Title = "Ana Sayfa";
@@ -17,7 +18,7 @@
         <div class="row">
             <div class="col-md-6">
                 <div class="row" align="center">
-                    <img height="500px" width="500px" src="~/assets/img/devices-icons-free-vector.jpg" />
+                    <img height="500" width="500" src="~/assets/img/devices-icons-free-vector.jpg" />
                 </div><br />
             </div>
             <div class="col-md-6">
@@ -44,7 +45,7 @@
                 <div class="jumbotron">
                     <h1>
                         Hoş geldin<br>
-                        <strong>@MembershipTools.GetNameSurname() .GetNameSurname(HttpContext.Current.User.Identity.GetUserId())</strong>!
+                        <strong>@(await _membershipTools.GetNameSurname(null))</strong>!
                     </h1>
                     <p>Emeklilik ne zaman?</p>
                 </div>
@@ -60,7 +61,7 @@ else if (User.IsInRole("Technician"))
         <div class="row">
             <div class="col-md-6">
                 <div class="row" align="center">
-                    <img height="500px" width="500px" src="~/assets/img/devices-icons-free-vector.jpg" />
+                    <img height="500" width="500" src="~/assets/img/devices-icons-free-vector.jpg" />
                 </div><br />
             </div>
             <div class="col-md-6">
@@ -87,7 +88,7 @@ else if (User.IsInRole("Technician"))
                 <div class="jumbotron">
                     <h1>
                         Hoş geldin<br>
-                        <strong>@MembershipTools.GetNameSurname()</strong>!
+                        <strong>@(await _membershipTools.GetNameSurname(null))</strong>!
                     </h1>
                     <p>Yeni bir gün ve yeni arızalar! İşe koyulma zamanı!</p>
                     <h1 class="text-center"><a class="btn btn-primary btn-lg btn-block" href="@Url.Action("FailureList", "Technician")" role="button">Arıza Listesine Git</a></h1>
@@ -103,7 +104,7 @@ else if (User.IsInRole("Operator"))
         <div class="row">
             <div class="col-md-6">
                 <div class="row" align="center">
-                    <img height="500px" width="500px" src="~/assets/img/devices-icons-free-vector.jpg" />
+                    <img height="500" width="500" src="~/assets/img/devices-icons-free-vector.jpg" />
                 </div><br />
             </div>
             <div class="col-md-6">
@@ -130,7 +131,7 @@ else if (User.IsInRole("Operator"))
                 <div class="jumbotron">
                     <h1>
                         Hoş geldin<br>
-                        <strong>@MembershipTools.GetNameSurname()</strong>!
+                        <strong>@(await _membershipTools.GetNameSurname(null))</strong>!
                     </h1>
                     <p>Her geçen saniye dünyada 30 bin kadar elektronik alet bozuluyor. Gayet sallama bir rakam oldu bu. Senin işin de bu arızaları doğru teknisyenlere atamak. Kolay gelsin!</p>
                     <h1 class="text-center"><a class="btn btn-primary btn-lg btn-block" href="@Url.Action("FailureList", "Operator")" role="button">Arıza Listesine Git</a></h1>
@@ -140,20 +141,20 @@ else if (User.IsInRole("Operator"))
 
     </div>
 }
-else if (User.IsInRole("User"))
+else if (User.IsInRole("Client"))
 {
     <div class="panel-body">
         <div class="row">
             <div class="col-md-6">
                 <div class="row" align="center">
-                    <img height="500px" width="500px" src="~/assets/img/devices-icons-free-vector.jpg" />
+                    <img height="500" width="500" src="~/assets/img/devices-icons-free-vector.jpg" />
                 </div><br />
             </div>
             <div class="col-md-6">
                 <div class="jumbotron">
                     <h1>
                         Hoş geldin<br>
-                        <strong>@MembershipTools.GetNameSurname()</strong>!
+                        <strong>@(await _membershipTools.GetNameSurname(null))</strong>!
                     </h1>
                     <p>Cana geleceğine mala gelsin, siz hiç üzülmeyin! Arızanızı alanında uzman ekiplerimize bildirin ve sadece bir gün içinde çözmeye gelelim!</p>
                     <h1 class="text-center"><a class="btn btn-primary btn-lg btn-block" href="@Url.Action("Add", "Failure")" role="button">Yeni arıza ekleyin</a></h1>
@@ -170,7 +171,7 @@ else
         <div class="row">
             <div class="col-md-6">
                 <div class="row" align="center">
-                    <img height="500px" width="500px" src="~/assets/img/devices-icons-free-vector.jpg" />
+                    <img height="500" width="500" src="~/assets/img/devices-icons-free-vector.jpg" />
                 </div><br />
             </div>
             <div class="col-md-6">
@@ -181,7 +182,7 @@ else
                     <p>Cana geleceğine mala gelsin, siz hiç üzülmeyin! Arızanızı alanında uzman ekiplerimize bildirin ve sadece bir gün içinde çözmeye gelelim! Başlamak için:</p>
                     <div class="row">
                         <div class="col-md-6">
-                            <h1 class="text-center"><a class="btn btn-success btn-lg btn-block" href="@Url.Action("Index", "Account")" role="button">Giriş Yapın</a></h1>
+                            <h1 class="text-center"><a class="btn btn-success btn-lg btn-block" href="@Url.Action("Login", "Account")" role="button">Giriş Yapın</a></h1>
                         </div>
                         <div class="col-md-6">
                             <h1 class="text-center"><a class="btn btn-warning btn-lg btn-block" href="@Url.Action("Register", "Account")" role="button">Kaydolun</a></h1>
@@ -192,5 +193,3 @@ else
         </div>
     </div>
 }
-
-
