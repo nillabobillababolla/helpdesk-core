@@ -17,20 +17,11 @@ namespace HelpDesk.BLL.Repository.Abstracts
             DbContext = dbContext;
             DbObject = DbContext.Set<T>();
         }
-        public IQueryable<T> GetAll()
-        {
-            return DbObject;
-        }
+        public IQueryable<T> GetAll() => DbObject;
 
-        public IQueryable<T> GetAll(Func<T, bool> predicate)
-        {
-            return DbObject.Where(predicate).AsQueryable();
-        }
+        public IQueryable<T> GetAll(Func<T, bool> predicate) => DbObject.Where(predicate).AsQueryable();
 
-        public T GetById(TId id)
-        {
-            return DbObject.Find(id);
-        }
+        public T GetById(TId id) => DbObject.Find(id);
 
         public virtual void Insert(T entity)
         {
@@ -48,12 +39,9 @@ namespace HelpDesk.BLL.Repository.Abstracts
         {
             DbObject.Attach(entity);
             DbContext.Entry(entity).State = EntityState.Modified;
-            //entity.UpdatedDate = DateTime.Now;
+            entity.UpdatedDate = DateTime.Now;
             Save();
         }
-        public void Save()
-        {
-            DbContext.SaveChanges();
-        }
+        public void Save() => DbContext.SaveChanges();
     }
 }

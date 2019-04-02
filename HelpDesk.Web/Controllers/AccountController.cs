@@ -1,6 +1,6 @@
 ﻿using HelpDesk.BLL.Account;
 using HelpDesk.BLL.Helpers;
-using HelpDesk.BLL.Services.Senders;
+using HelpDesk.DAL;
 using HelpDesk.Models.Enums;
 using HelpDesk.Models.IdentityEntities;
 using HelpDesk.Models.ViewModels;
@@ -10,11 +10,8 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using System;
-using System.IO;
 using System.Linq;
-using System.Security.Claims;
 using System.Threading.Tasks;
-using HelpDesk.DAL;
 using EmailService = HelpDesk.BLL.Services.Senders.EmailService;
 
 namespace HelpDesk.Web.Controllers
@@ -31,17 +28,17 @@ namespace HelpDesk.Web.Controllers
             _hostingEnvironment = hostingEnvironment;
             _dbContext = dbContext;
 
-            var roleNames = Enum.GetNames(typeof(IdentityRoles));
-            foreach (var roleName in roleNames)
+            string[] roleNames = Enum.GetNames(typeof(IdentityRoles));
+            foreach (string roleName in roleNames)
             {
                 if (!_membershipTools.RoleManager.RoleExistsAsync(roleName).Result)
                 {
-                    var role = new ApplicationRole()
+                    ApplicationRole role = new ApplicationRole()
                     {
                         Name = roleName
                     };
 
-                    var task = _membershipTools.RoleManager.CreateAsync(role).Result;
+                    IdentityResult task = _membershipTools.RoleManager.CreateAsync(role).Result;
                     Task.Run(() => task);
                 }
             }
@@ -50,10 +47,13 @@ namespace HelpDesk.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Index()
         {
-            var user = await _membershipTools.UserManager.GetUserAsync(HttpContext.User);
+            ApplicationUser user = await _membershipTools.UserManager.GetUserAsync(HttpContext.User);
             if (user == null)
+            {
                 return RedirectToAction("Index", "Home");
-            var data = AutoMapper.Mapper.Map<ApplicationUser, UserProfileViewModel>(user);
+            }
+
+            UserProfileViewModel data = AutoMapper.Mapper.Map<ApplicationUser, UserProfileViewModel>(user);
             return View(data);
         }
 
@@ -75,14 +75,14 @@ namespace HelpDesk.Web.Controllers
             }
             try
             {
-                var user = await _membershipTools.UserManager.FindByNameAsync(model.UserName);
+                ApplicationUser user = await _membershipTools.UserManager.FindByNameAsync(model.UserName);
                 if (user != null)
                 {
                     ModelState.AddModelError("UserName", "Bu kullanıcı adı daha önceden alınmıştır");
                     return View("Register", model);
                 }
 
-                var newUser = new ApplicationUser()
+                ApplicationUser newUser = new ApplicationUser()
                 {
                     AvatarPath = "/assets/images/icon-noprofile.png",
                     EmailConfirmed = false,
@@ -94,7 +94,7 @@ namespace HelpDesk.Web.Controllers
                 };
                 newUser.ActivationCode = StringHelpers.GetCode();
 
-                var result = await _membershipTools.UserManager.CreateAsync(newUser, model.Password);
+                IdentityResult result = await _membershipTools.UserManager.CreateAsync(newUser, model.Password);
                 if (result.Succeeded)
                 {
                     switch (_membershipTools.UserManager.Users.Count())
@@ -113,22 +113,22 @@ namespace HelpDesk.Web.Controllers
                             break;
                     }
 
-                    var uri = new UriBuilder();
-                    var hostComponents = Request.Host.ToUriComponent().Split(':');
+                    UriBuilder uri = new UriBuilder();
+                    string[] hostComponents = Request.Host.ToUriComponent().Split(':');
                     string SiteUrl = uri.Scheme + System.Uri.SchemeDelimiter + uri.Scheme + hostComponents;
 
-                    var emailService = new EmailService();
-                    var body = $"Merhaba <b>{newUser.Name} {newUser.Surname}</b><br>Hesabınızı aktif etmek için aşağıdaki linke tıklayınız<br> <a href='{SiteUrl}/account/activation?code={newUser.ActivationCode}' >Aktivasyon Linki </a> ";
+                    EmailService emailService = new EmailService();
+                    string body = $"Merhaba <b>{newUser.Name} {newUser.Surname}</b><br>Hesabınızı aktif etmek için aşağıdaki linke tıklayınız<br> <a href='{SiteUrl}/account/activation?code={newUser.ActivationCode}' >Aktivasyon Linki </a> ";
                     await emailService.SendAsync(new HelpDesk.Models.Models.EmailModel() { Body = body, Subject = "Sitemize Hoşgeldiniz" }, newUser.Email);
                 }
                 else
                 {
-                    var err = "";
-                    foreach (var resultError in result.Errors)
+                    string err = "";
+                    foreach (IdentityError resultError in result.Errors)
                     {
                         err += resultError.Description;
                     }
-                    ModelState.AddModelError(String.Empty, err);
+                    ModelState.AddModelError(string.Empty, err);
                     return View("Register", model);
                 }
 
@@ -171,12 +171,14 @@ namespace HelpDesk.Web.Controllers
                     return View("Login", model);
                 }
 
-                var result = await _membershipTools.SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, true);
+                Microsoft.AspNetCore.Identity.SignInResult result = await _membershipTools.SignInManager.PasswordSignInAsync(model.UserName, model.Password, model.RememberMe, true);
 
                 if (result.Succeeded)
+                {
                     return RedirectToAction("Index", "Account");
+                }
 
-                ModelState.AddModelError(String.Empty, "Kullanıcı adı veya şifre hatalı");
+                ModelState.AddModelError(string.Empty, "Kullanıcı adı veya şifre hatalı");
                 return View(model);
             }
             catch (Exception ex)
@@ -204,8 +206,8 @@ namespace HelpDesk.Web.Controllers
         {
             try
             {
-                var user = await _membershipTools.UserManager.GetUserAsync(HttpContext.User);
-                var data = new UserProfileViewModel()
+                ApplicationUser user = await _membershipTools.UserManager.GetUserAsync(HttpContext.User);
+                UserProfileViewModel data = new UserProfileViewModel()
                 {
                     Email = user.Email,
                     Id = user.Id,
@@ -236,7 +238,7 @@ namespace HelpDesk.Web.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> UserProfile(UserProfileViewModel model)
         {
-            var user = await _membershipTools.UserManager.FindByIdAsync(model.Id);
+            ApplicationUser user = await _membershipTools.UserManager.FindByIdAsync(model.Id);
 
             if (!ModelState.IsValid)
             {
@@ -317,12 +319,12 @@ namespace HelpDesk.Web.Controllers
         {
             try
             {
-                var user = await _membershipTools.UserManager.GetUserAsync(HttpContext.User);
+                ApplicationUser user = await _membershipTools.UserManager.GetUserAsync(HttpContext.User);
 
                 //var id = _membershipTools.IHttpContextAccessor.HttpContext.User.FindFirst(ClaimTypes.Name)?.Value;
                 //var user = await _membershipTools.UserManager.FindByIdAsync(id);
 
-                var data = new ChangePasswordViewModel()
+                ChangePasswordViewModel data = new ChangePasswordViewModel()
                 {
                     OldPassword = model.OldPassword,
                     NewPassword = model.NewPassword,
@@ -335,21 +337,21 @@ namespace HelpDesk.Web.Controllers
                     return RedirectToAction("Index", "Home");
                 }
 
-                var result = await _membershipTools.UserManager.ChangePasswordAsync(await _membershipTools.UserManager.GetUserAsync(HttpContext.User),
+                IdentityResult result = await _membershipTools.UserManager.ChangePasswordAsync(await _membershipTools.UserManager.GetUserAsync(HttpContext.User),
                     model.OldPassword, model.NewPassword);
 
                 if (result.Succeeded)
                 {
-                    var emailService = new EmailService();
-                    var body = $"Merhaba <b>{user.Name} {user.Surname}</b><br>Hesabınızın şifresi değiştirilmiştir. <br> Bilginiz dahilinde olmayan değişiklikler için hesabınızı güvence altına almanızı öneririz.</p>";
+                    EmailService emailService = new EmailService();
+                    string body = $"Merhaba <b>{user.Name} {user.Surname}</b><br>Hesabınızın şifresi değiştirilmiştir. <br> Bilginiz dahilinde olmayan değişiklikler için hesabınızı güvence altına almanızı öneririz.</p>";
                     emailService.Send(new HelpDesk.Models.Models.EmailModel() { Body = body, Subject = "Şifre Değiştirme hk." }, user.Email);
 
                     return RedirectToAction("Logout", "Account");
                 }
                 else
                 {
-                    var err = "";
-                    foreach (var resultError in result.Errors)
+                    string err = "";
+                    foreach (IdentityError resultError in result.Errors)
                     {
                         err += resultError + " ";
                     }
@@ -384,7 +386,7 @@ namespace HelpDesk.Web.Controllers
         {
             try
             {
-                var user = await _membershipTools.UserManager.FindByEmailAsync(model.Email);
+                ApplicationUser user = await _membershipTools.UserManager.FindByEmailAsync(model.Email);
 
                 if (user == null)
                 {
@@ -392,7 +394,7 @@ namespace HelpDesk.Web.Controllers
                     return View(model);
                 }
 
-                var newPassword = StringHelpers.GetCode().Substring(0, 6);
+                string newPassword = StringHelpers.GetCode().Substring(0, 6);
 
                 await _membershipTools.UserManager.RemovePasswordAsync(user);
                 await _membershipTools.UserManager.AddPasswordAsync(user,
@@ -415,8 +417,8 @@ namespace HelpDesk.Web.Controllers
                     return RedirectToAction("Error500", "Home");
                 }
 
-                var emailService = new EmailService();
-                var body = $"Merhaba <b>{user.Name} {user.Surname}</b><br>Hesabınızın parolası sıfırlanmıştır<br> Yeni parolanız: <b>{newPassword}</b> <p>Yukarıdaki parolayı kullanarak sitemize giriş yapabilirsiniz.</p>";
+                EmailService emailService = new EmailService();
+                string body = $"Merhaba <b>{user.Name} {user.Surname}</b><br>Hesabınızın parolası sıfırlanmıştır<br> Yeni parolanız: <b>{newPassword}</b> <p>Yukarıdaki parolayı kullanarak sitemize giriş yapabilirsiniz.</p>";
                 emailService.Send(new HelpDesk.Models.Models.EmailModel() { Body = body, Subject = $"{user.UserName} Şifre Kurtarma" }, user.Email);
             }
 
@@ -441,7 +443,7 @@ namespace HelpDesk.Web.Controllers
         {
             try
             {
-                var user = _membershipTools.UserManager.Users.FirstOrDefault(x => x.ActivationCode == code);
+                ApplicationUser user = _membershipTools.UserManager.Users.FirstOrDefault(x => x.ActivationCode == code);
 
                 if (user != null)
                 {

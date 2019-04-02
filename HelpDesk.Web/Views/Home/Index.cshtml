@@ -44,7 +44,7 @@
                 <div class="jumbotron">
                     <h1>
                         Hoş geldin<br>
-                        <strong>@MembershipTools.GetNameSurname() .GetNameSurname(HttpContext.Current.User.Identity.GetUserId())</strong>!
+                        <strong></strong>!
                     </h1>
                     <p>Emeklilik ne zaman?</p>
                 </div>
@@ -87,7 +87,7 @@ else if (User.IsInRole("Technician"))
                 <div class="jumbotron">
                     <h1>
                         Hoş geldin<br>
-                        <strong>@MembershipTools.GetNameSurname()</strong>!
+                        <strong></strong>!
                     </h1>
                     <p>Yeni bir gün ve yeni arızalar! İşe koyulma zamanı!</p>
                     <h1 class="text-center"><a class="btn btn-primary btn-lg btn-block" href="@Url.Action("FailureList", "Technician")" role="button">Arıza Listesine Git</a></h1>
@@ -130,7 +130,7 @@ else if (User.IsInRole("Operator"))
                 <div class="jumbotron">
                     <h1>
                         Hoş geldin<br>
-                        <strong>@MembershipTools.GetNameSurname()</strong>!
+                        <strong></strong>!
                     </h1>
                     <p>Her geçen saniye dünyada 30 bin kadar elektronik alet bozuluyor. Gayet sallama bir rakam oldu bu. Senin işin de bu arızaları doğru teknisyenlere atamak. Kolay gelsin!</p>
                     <h1 class="text-center"><a class="btn btn-primary btn-lg btn-block" href="@Url.Action("FailureList", "Operator")" role="button">Arıza Listesine Git</a></h1>
@@ -153,7 +153,7 @@ else if (User.IsInRole("User"))
                 <div class="jumbotron">
                     <h1>
                         Hoş geldin<br>
-                        <strong>@MembershipTools.GetNameSurname()</strong>!
+                        <strong></strong>!
                     </h1>
                     <p>Cana geleceğine mala gelsin, siz hiç üzülmeyin! Arızanızı alanında uzman ekiplerimize bildirin ve sadece bir gün içinde çözmeye gelelim!</p>
                     <h1 class="text-center"><a class="btn btn-primary btn-lg btn-block" href="@Url.Action("Add", "Failure")" role="button">Yeni arıza ekleyin</a></h1>

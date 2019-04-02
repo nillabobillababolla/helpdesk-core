@@ -1,6 +1,7 @@
 ﻿using AutoMapper;
 using HelpDesk.Models.ViewModels;
 using HelpDesk.Models.Entities;
+using HelpDesk.Models.IdentityEntities;
 
 namespace HelpDesk.Web
 {
@@ -20,6 +21,14 @@ namespace HelpDesk.Web
             public FailureLogProfile()
             {
                 CreateMap<FailureLog, FailureLogViewModel>().ReverseMap();
+            }
+        }
+
+        public class UserProfileProfile : Profile
+        {
+            public UserProfileProfile()
+            {
+                CreateMap<ApplicationUser, UserProfileViewModel>().ReverseMap();
             }
         }
 
