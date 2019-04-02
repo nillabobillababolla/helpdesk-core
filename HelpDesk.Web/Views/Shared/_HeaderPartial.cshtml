@@ -44,7 +44,7 @@
             @if (User.Identity.IsAuthenticated)
             {
                 <a href="#" data-toggle="dropdown" class="dropdown-toggle text-right">
-                    <span class="pull-right"> <img class="img-circle img-user media-object" src="@_MembershipTools.GetAvatarPath(null)" alt="Profil Resmi"> </span>
+                    <span class="pull-right"> <img class="img-circle img-user media-object" src="@_MembershipTools.GetAvatarPath(null).Result" alt="Profil Resmi"> </span>
                     <div class="username hidden-xs">@_MembershipTools.GetNameSurname(null).Result</div>
                 </a>
             }
@@ -54,7 +54,7 @@
                 <ul class="head-list">
                     @if (User.Identity.IsAuthenticated)
                     {
-                        if (User.IsInRole("User"))
+                        if (User.IsInRole("Client"))
                         {
                             <li><a href="@Url.Action("Add", "Failure")"> <i class="fa fa-plus"></i> <span class="menu-title">Arıza Ekle</span></a></li>
                         }
