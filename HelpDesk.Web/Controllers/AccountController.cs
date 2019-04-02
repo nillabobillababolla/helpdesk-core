@@ -175,7 +175,7 @@ namespace HelpDesk.Web.Controllers
 
                 if (result.Succeeded)
                 {
-                    return RedirectToAction("Index", "Account");
+                    return RedirectToAction("Index", "Home");
                 }
 
                 ModelState.AddModelError(string.Empty, "Kullanıcı adı veya şifre hatalı");
